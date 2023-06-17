@@ -48,8 +48,8 @@ if __name__ == '__main__':
 
     EXIT_CONDITIONS = {'q', 'quit', 'exit'}
 
-    try:
-        while True:
+    while True:
+        try:
             print('> Input text to analyze:')
             text = input().lower()
 
@@ -58,7 +58,7 @@ if __name__ == '__main__':
             else:
                 print('    ', analyze_text_sentiment(text))
                 print()
-    except EOFError:
-        _goodbye()
-    except KeyboardInterrupt:
-        _goodbye()
+        except EOFError:
+            _goodbye()
+        except KeyboardInterrupt:
+            _goodbye()
