@@ -13,31 +13,52 @@ def analyze_compound_score(score):
     elif score <= -0.05:
         return 'negative sentiment'
 
+def analyze_text_sentiment(text):
+    score = get_compound_score(text)
+    result = analyze_compound_score(score)
+    return 'The text has a ' + result + '.'
+
 if __name__ == '__main__':
-    dataset = [
-        "I love this product!",
-        "The movie was amazing.",
-        "The food at that restaurant is terrible.",
-        "I feel disappointed with the service.",
-        "This book is a masterpiece.",
-        "The customer support was really helpful.",
-        "I can't stand the traffic in this city.",
-        "The concert exceeded my expectations.",
-        "The weather ruined our plans for the day.",
-        "I had a terrible experience with that company.",
-        "The performance was outstanding!",
-        "I'm so grateful for their assistance.",
-        "The product failed to meet my expectations.",
-        "I'm absolutely thrilled with the outcome.",
-        "The hotel was a complete disaster.",
-        "The quality of the product is top-notch.",
-        "The service was prompt and efficient.",
-        "I was pleasantly surprised by their performance.",
-        "The app crashes frequently, very frustrating.",
-        "I highly recommend this restaurant."
-    ]
+    def _demo():
+        dataset = [
+            "I love this product!",
+            "The food at that restaurant is terrible.",
+            "I can't stand the traffic in this city.",
+        ]
 
-    dataset_scores = [(sentence, analyze_compound_score(get_compound_score(sentence))) for sentence in dataset]
+        results = [(sentence, analyze_text_sentiment(sentence)) for sentence in dataset]
 
-    for data in dataset_scores:
-        print(data)
+        print('Simple Sentiment Analysis')
+        print('Running demo:')
+        print()
+
+        for sentence, sentiment in results:
+            print('    ', sentence)
+            print('        ', sentiment)
+            print()
+
+    def _goodbye():
+        print('Thanks and goodbye!')
+        quit()
+
+    _demo()
+
+    print('Hint: type "quit" to exit!')
+    print()
+
+    EXIT_CONDITIONS = {'q', 'quit', 'exit'}
+
+    try:
+        while True:
+            print('> Input text to analyze:')
+            text = input().lower()
+
+            if text in EXIT_CONDITIONS:
+                _goodbye()
+            else:
+                print('    ', analyze_text_sentiment(text))
+                print()
+    except EOFError:
+        _goodbye()
+    except KeyboardInterrupt:
+        _goodbye()
